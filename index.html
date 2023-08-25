@@ -155,6 +155,15 @@
                     <a href="https://minghuit.github.io/Tic-Tac-Toe/" target="_blank"><i class='bx bx-link-external'></i></a>
                 </div>
             </div>
+
+            <div class="portfolio-box">
+                <img src="img/burger.gif" alt="burger">
+                <div class="portfolio-layer">
+                    <h4>Burger animation</h4>
+                    <p>I created this captivating burger bouncing animation using Blender.</p>
+                    <a href="img/burger.gif" target="_blank"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -162,18 +171,18 @@
     <section class="contact" id="contact">
         <h2 class="heading">Contact <span>Me!</span></h2>
 
-        <form action="sendmail.php" method="POST">
+        <form method="POST">
             <div class="input-box">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="name" id="name" placeholder="Name" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
             </div>
 
             <div class="input-box">
-                <input type="text" name="subject" placeholder="Email Subject" required>
+                <input type="text" name="subject" id="subject" placeholder="Email Subject" required>
             </div>
 
-            <textarea name="message" cols="30" rows="10" placeholder="Type here" required></textarea>
-            <input type="submit" value="Send Message" class="btn">
+            <textarea name="message" cols="30" rows="10" id="message" placeholder="Type here" required></textarea>
+            <input type="submit" value="Send Message" class="btn" id="submit-mail">
         </form>
     </section>
 
@@ -196,5 +205,37 @@
 
     <!-- javascript -->
     <script src="script.js"></script>
+
+    <!-- Include the jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#submit-mail").click(function() {
+                event.preventDefault();
+
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var subject = $("#subject").val();
+                var message = $("#message").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "sendmail.php", // Replace with the URL of your server-side script
+                    data: {
+                        name: name,
+                        email: email,
+                        subject: subject,
+                        message: message
+                    },
+                    success: function() {
+                        alert("Successfully sent!");
+                        window.location.href = 'index.html';
+                    }
+                });
+                
+            });
+        });
+    </script>
 </body>
 </html>
